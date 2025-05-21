@@ -15,6 +15,7 @@ func getProducts(db *sql.DB) ([]product, error) {
 	if err!=nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	prosucts := []product{}
 	for rows.Next() {
