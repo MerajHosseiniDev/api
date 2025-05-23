@@ -45,7 +45,7 @@ func sendError(w http.ResponseWriter, statusCode int, err string) {
 }
 
 func (app *App) getProducts(w http.ResponseWriter, r *http.Request) {
-	products, err := getProducts(app.DB)
+	products, err := FetchProductsFromDB(app.DB)
 	if err != nil {
 		sendError(w, http.StatusInternalServerError, err.Error())
 		return

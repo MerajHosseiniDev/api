@@ -9,7 +9,7 @@ type product struct {
 	Price    float64 `json:"price"`
 }
 
-func getProducts(db *sql.DB) ([]product, error) {
+func FetchProductsFromDB(db *sql.DB) ([]product, error) {
 	query := "SELECT id, name, quantity, price from products"
 	rows, err := db.Query(query)
 	if err!=nil {
@@ -17,14 +17,14 @@ func getProducts(db *sql.DB) ([]product, error) {
 	}
 	defer rows.Close()
 
-	prosucts := []product{}
+	products := []product{}
 	for rows.Next() {
 		var p product
 		err := rows.Scan(&p.ID, &p.Name, &p.Quantity, &p.Price)
 		if err != nil {
 			return nil, err
 		}
-		prosucts = append(prosucts, p)
+		products = append(products, p)
 	}
-	return prosucts, nil
+	return products, nil
 }
